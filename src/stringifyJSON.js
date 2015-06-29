@@ -13,22 +13,26 @@ var stringifyJSON = function(obj) {
 		} // End of Null/Number/Boolean Test
 
 		// TEST FOR AN ARRAY
-		if(Array.isArray(obj)){ // if the obj == array
-			var result = '[';
-				for(var i = 0; i < obj.length; i++) { // loop through each element
-					result += (i ? ',' :'') + stringifyJSON(obj[i]);// call the function each element in the array
-				}
-			return(result + ']'); 
-		} // End of Array Test
+		if(Array.isArray(obj)){
+			var results = [];
+			_.each(obj, function(item){
+				var stringifiedItem = stringifyJSON(item);
+				results.push(stringifiedItem);
+		})
+		return '[' + results.join() + ']'; // this will add all the items separated by a comma
+} // End of Array Test
 
 		// TEST FOR AN OBJECT	
 		if(typeof obj === 'object'){
 			var results = []; // create an array to hold the value
-			for(var key in obj){
-				results.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key])); // recursively call the function on each key
-				if(obj[key] === undefined || obj[key] === 'function') // if the object's key value is undefined
-					return '{}'; // return {};
-			} 
+			_.each(obj, function(item, key){
+				if(typeof item !== 'function' && item !== undefined){
+					var stringifiedKey = stringifyJSON(key);
+					var stringifiedItem = stringifyJSON(item);
+					var stringResults = stringifiedKey + ':' + stringifiedItem;
+					results.push(stringResults);
+				}
+			});
 			return '{' + results.join(',') + '}'; // add the array and format it		
 		} // End of Object Test 	
 
@@ -41,11 +45,3 @@ var stringifyJSON = function(obj) {
 	
 };
 
-// Alternate solution for Array
-/* if(Array.isArray){
-	var results = [];
-	_.each(obj, function(item){
-		var stringifiedItem = stringifyJSON(item);
-		results.push(stringifiedItem);
-	})
-}*/
