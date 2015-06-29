@@ -34,7 +34,7 @@ var stringifyJSON = function(obj) {
 
 		// TEST FOR A STRING
 		if(typeof obj === 'string') {
-			return('"'+ obj.toString() + '"');
+			return('"'+ obj + '"');
 		} // End of String Test
 		
 	 // END OF BASE CASE: return the value
