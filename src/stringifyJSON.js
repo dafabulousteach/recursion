@@ -40,3 +40,12 @@ var stringifyJSON = function(obj) {
 	 // END OF BASE CASE: return the value
 	
 };
+
+// Alternate solution for Array
+/* if(Array.isArray){
+	var results = [];
+	_.each(obj, function(item){
+		var stringifiedItem = stringifyJSON(item);
+		results.push(stringifiedItem);
+	})
+}*/
