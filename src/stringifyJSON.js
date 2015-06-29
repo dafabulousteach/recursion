@@ -7,10 +7,10 @@ var stringifyJSON = function(obj) {
 
 	// BASE CASE: if the length of the obj array is not equal to 0
 
-		// TEST FOR A NULL
-		if(obj === null){ // if the type of object == null
+		// TEST FOR A NULL || NUMBER || BOOLEAN
+		if(obj === null || typeof obj === 'number' || typeof obj === 'boolean'){ // if the type of object == null
 			return("" + obj);
-		}
+		} // End of Null/Number/Boolean Test
 
 		// TEST FOR AN ARRAY
 		if(Array.isArray(obj)){ // if the obj == array
@@ -19,7 +19,7 @@ var stringifyJSON = function(obj) {
 					result += (i ? ',' :'') + stringifyJSON(obj[i]);// call the function each element in the array
 				}
 			return(result + ']'); 
-		}
+		} // End of Array Test
 
 		// TEST FOR AN OBJECT	
 		if(typeof obj === 'object'){
@@ -32,19 +32,10 @@ var stringifyJSON = function(obj) {
 			return '{' + results.join(',') + '}'; // add the array and format it		
 		} // End of Object Test 	
 
-		// TEST FOR A NUMBER
-		if(typeof obj === 'number'){
-			return("" + obj);
-		}
-		// TEST FOR A BOOLEAN
-		if(typeof obj === 'boolean'){
-			return("" + obj);
-		}
-
 		// TEST FOR A STRING
 		if(typeof obj === 'string') {
 			return('"'+ obj.toString() + '"');
-		}
+		} // End of String Test
 		
 	 // END OF BASE CASE: return the value
 	
